@@ -27,5 +27,5 @@ app.use("/eventos", routerEvento);
 app.use("/ingressos", routerIngresso);
 
 app.use("/", (req, res) =>
-  res.send("API Events decolando na velocidade da luz!")
+  res.send({ greetings: "API Events decolando na velocidade da luz!" })
 );
