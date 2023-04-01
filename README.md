@@ -5,7 +5,7 @@ Passos para rodar esse projeto:
 1. Run `npm i` command
 2. Configurar database no arquivo ormconfig.json
 3. Definir chave de autenticação no arquivo .env (seguir modelo .env-example)
-4. Executar 'npm run start' no terminal (diretorio do projeto)
+4. Executar `npm run start` no terminal (diretorio do projeto)
 
 exemplo de consulta no postman para eventos por data:
 GET: http://localhost:3000/eventos?data_inicio=2023-09-01&data_fim=2023-11-01
