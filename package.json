@@ -28,6 +28,7 @@
   "scripts": {
     "dev": "nodemon --exec ts-node --files src/server.ts",
     "start": "ts-node --files src/server.ts",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "typeorm:migrate": "ts-node ./node_modules/typeorm/cli.js migration:run"
   }
 }

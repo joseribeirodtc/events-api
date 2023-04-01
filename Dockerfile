@@ -1,5 +1,8 @@
 FROM node:16
 
+#variaveis de ambiente
+ENV SECRET=secret
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./
