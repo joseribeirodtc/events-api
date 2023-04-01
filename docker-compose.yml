@@ -7,6 +7,14 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: events
     volumes:
-      - ./pgdata:/var/lib/postgressql/data
+      - ./pgdata:/var/lib/postgresql/data
     ports:
       - "1040:5432"
+  app:
+    container_name: events-api
+    restart: always
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
