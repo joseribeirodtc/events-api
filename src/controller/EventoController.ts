@@ -41,16 +41,6 @@ export class EventoController {
     return evento;
   }
 
-  async recuperarIngressosDoEvento(id: number) {
-    if (id === undefined) {
-      return null;
-    }
-    const evento = await getManager().findOne(Evento, id, {
-      relations: ["ingressos"],
-    });
-    return evento.ingressos;
-  }
-
   async atualizarIngressosDisponiveis(id: number, quantidade: number) {
     if (id === undefined) {
       return null;

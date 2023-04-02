@@ -3,12 +3,6 @@ import * as jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-// interface TokenPayload {
-//   id: Number;
-//   iat: Number;
-//   exp: Number;
-// }
-
 export default function authMiddleware(
   req: Request,
   res: Response,

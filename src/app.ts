@@ -31,5 +31,5 @@ app.use("/ingressos", routerIngresso);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/", (req, res) =>
-  res.send({ greetings: "API Events decolando na velocidade da luz!" })
+  res.send({ greetings: "API Events! Decolando na velocidade da luz!" })
 );

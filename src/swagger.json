@@ -449,7 +449,7 @@
             "$ref": "#/components/schemas/Usuario"
           },
           "evento": {
-            "$ref": "#/components/schemas/Usuario"
+            "$ref": "#/components/schemas/Evento"
           }
         }
       }

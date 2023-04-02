@@ -40,12 +40,3 @@ routerUsuario.get("/:idUsuario", async (req, res) => {
   }
   return res.json(usuario);
 });
-
-// //consulta ingressos do usuario
-// routerUsuario.get("/ingressos/:idUsuario", async (req, res) => {
-//   const idUsuario = parseInt(req.params.idUsuario);
-//   const ingressos = await usuarioController.recuperarIngressosDoUsuario(
-//     idUsuario
-//   );
-//   res.json(ingressos);
-// });
