@@ -39,52 +39,17 @@ routerIngresso.post("/", authMiddleware, async (req, res) => {
 
     const ingresso = new Ingresso(usuario, evento);
     const ingresso_salvo = await ingressoController.salvar(ingresso);
-    res.json(ingresso_salvo);
+    return res.json(ingresso_salvo);
   }
-});
-
-//consulta ingressos
-routerIngresso.get("/", async (req, res) => {
-  const ingressos = await ingressoController.recuperarTodos();
-  res.json(ingressos);
-});
-
-//delete ingresso
-routerIngresso.delete("/:idIngresso", async (req, res) => {
-  const idIngresso = parseInt(req.params.idIngresso);
-  await ingressoController.deletarIngresso(idIngresso);
-  res.status(204).send();
 });
 
 //consulta ingresso por id
 routerIngresso.get("/:idIngresso", async (req, res) => {
   const idIngresso = parseInt(req.params.idIngresso);
   const ingresso = await ingressoController.recuperarPorId(idIngresso);
-  res.json(ingresso);
-});
 
-routerIngresso.post("/test", async (req, res) => {
-  const { idEvento } = req.body;
-  const evento = await eventoController.recuperarPorId(idEvento);
-
-  if (!evento) {
-    res.status(404).json({ mensagem: "Evento não encontrado" });
-    return;
+  if (!ingresso) {
+    return res.status(404).json({ mensagem: "Ingresso não encontrado" });
   }
-
-  const quantidade = evento.quantidade_ingressos;
-  if (quantidade === 0) {
-    res.status(403).json({ mensagem: "Ingressos esgotados!" });
-    return;
-  }
-
-  const nova_quantidade = quantidade - 1;
-
-  const atualizacao = await eventoController.atualizarIngressosDisponiveis(
-    idEvento,
-    nova_quantidade
-  );
-
-  const evento_atualizado = await eventoController.recuperarPorId(idEvento);
-  res.json(evento_atualizado);
+  return res.json(ingresso);
 });

@@ -9,8 +9,11 @@ const usuarioController = new UsuarioController();
 routerUsuario.post("/", async (req, res) => {
   const { nome, email, senha } = req.body;
 
+  if (!nome || !email || !senha) {
+    return res.sendStatus(400);
+  }
+
   const usuarioExiste = await usuarioController.recuperarPorEmail(email);
-  console.log("usuarioExiste", usuarioExiste);
 
   if (usuarioExiste) {
     return res.sendStatus(409);
@@ -18,27 +21,22 @@ routerUsuario.post("/", async (req, res) => {
 
   const usuario = new Usuario(nome, email, senha);
   const usuarioSalvo = await usuarioController.salvar(usuario);
-  res.json(usuarioSalvo);
+  return res.json(usuarioSalvo);
 });
 
 //consulta usuarios
 routerUsuario.get("/", async (req, res) => {
   const usuarios = await usuarioController.recuperarTodos();
-  res.json(usuarios);
+  return res.json(usuarios);
 });
 
 //consulta usuario por id
 routerUsuario.get("/:idUsuario", async (req, res) => {
   const idUsuario = parseInt(req.params.idUsuario);
   const usuario = await usuarioController.recuperarPorId(idUsuario);
-  res.json(usuario);
-});
 
-//consulta ingressos do usuario
-routerUsuario.get("/ingressos/:idUsuario", async (req, res) => {
-  const idUsuario = parseInt(req.params.idUsuario);
-  const ingressos = await usuarioController.recuperarIngressosDoUsuario(
-    idUsuario
-  );
-  res.json(ingressos);
+  if (!usuario) {
+    return res.status(404).json({ mensagem: "Usuário não encontrado!" });
+  }
+  return res.json(usuario);
 });

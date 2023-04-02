@@ -9,6 +9,9 @@ import { routerEvento } from "./routes/eventos";
 import { routerIngresso } from "./routes/ingressos";
 import { routerAuth } from "./routes/auth";
 
+import * as swaggerUi from "swagger-ui-express";
+import * as swaggerDocument from "./swagger.json";
+
 export const app = express();
 
 app.use(cors());
@@ -25,7 +28,8 @@ app.use("/usuarios", routerUsuario);
 app.use("/auth", routerAuth);
 app.use("/eventos", routerEvento);
 app.use("/ingressos", routerIngresso);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/", (req, res) =>
-  res.send({ greetings: "API Events decolando na velocidade da luz!" })
+  res.send({ greetings: "API Events! Decolando na velocidade da luz!" })
 );

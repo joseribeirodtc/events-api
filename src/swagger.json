@@ -1,0 +1,465 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Events!",
+    "description": "Essa é uma API de demonstração para um aplicativo de eventos, onde é possível cadastrar usuários, eventos e comprar ingressos",
+    "contact": {
+      "url": "https://github.com/joseribeirodtc"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "API teste"
+    }
+  ],
+  "paths": {
+    "/usuarios": {
+      "post": {
+        "summary": "Cadastro de usuário.",
+        "description": "Rota responsável por cadastrar um novo usuário",
+        "tags": ["Usuários"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Usuario"
+              },
+              "examples": {
+                "usuario": {
+                  "value": {
+                    "nome": "Pedro",
+                    "email": "pedro@email.com",
+                    "senha": "123pedro"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Consulta de usuários",
+        "description": "Rota responsável por recuperar todos os usuários",
+        "tags": ["Usuários"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Usuario"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/usuarios/{idUsuario}": {
+      "get": {
+        "summary": "Consulta usuário por Id",
+        "description": "Rota responsável por recuperar um usuário pelo seu Id",
+        "tags": ["Usuários"],
+        "parameters": [
+          {
+            "name": "idUsuario",
+            "in": "path",
+            "description": "Id do usuário",
+            "required": true
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Usuário não encontrado"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eventos": {
+      "post": {
+        "summary": "Cadastro de evento.",
+        "description": "Rota responsável por cadastrar um novo evento",
+        "tags": ["Eventos"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Evento"
+              },
+              "examples": {
+                "usuario": {
+                  "value": {
+                    "nome": "Adriana Calcanhotto",
+                    "data": "2023-08-04",
+                    "quantidade_ingressos": "4"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Conflict"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Evento"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Consulta de eventos por período",
+        "description": "Rota responsável por recuperar eventos",
+        "tags": ["Eventos"],
+        "parameters": [
+          {
+            "name": "data_inicio",
+            "in": "query",
+            "description": "Data de início do período",
+            "required": false
+          },
+          {
+            "name": "data_fim",
+            "in": "query",
+            "description": "Data de final do período",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Evento"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eventos/{idEvento}": {
+      "get": {
+        "summary": "Consulta Evento por Id",
+        "description": "Rota responsável por recuperar um evento pelo seu Id",
+        "tags": ["Eventos"],
+        "parameters": [
+          {
+            "name": "idEvento",
+            "in": "path",
+            "description": "Id do evento",
+            "required": true
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Evento não encontrado"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Evento"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eventos/{idEvento}/{quantidade}": {
+      "patch": {
+        "summary": "Atualiza ingressos do evento",
+        "description": "Rota teste para atualizar quantidade de ingressos disponíveis",
+        "tags": ["Eventos"],
+        "parameters": [
+          {
+            "name": "idEvento",
+            "in": "path",
+            "description": "Id do evento",
+            "required": true
+          },
+          {
+            "name": "quantidade",
+            "in": "path",
+            "description": "quantidade de ingressos",
+            "required": true
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Parâmetros incorretos"
+          },
+          "404": {
+            "description": "Evento não encontrado"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Evento"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth": {
+      "post": {
+        "summary": "Autenticar usuário",
+        "description": "Recebe email e senha para gerar token de autenticação",
+        "tags": ["Autenticação"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "senha": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "usuario": {
+                  "value": {
+                    "email": "pedro@email.com",
+                    "senha": "123pedro"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Auth"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ingressos": {
+      "post": {
+        "summary": "Cadastro de ingresso",
+        "description": "Rota responsável por cadastrar um novo ingresso",
+        "tags": ["Ingressos"],
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idUsuario": {
+                    "type": "number"
+                  },
+                  "idEvento": {
+                    "type": "number"
+                  }
+                }
+              },
+              "examples": {
+                "ingresso": {
+                  "value": {
+                    "idUsuario": "1",
+                    "idEvento": "1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "404": {
+            "description": "Registro não encontrado"
+          },
+          "403": {
+            "description": "Ingressos esgotados"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Ingresso"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ingressos/{idIngresso}": {
+      "get": {
+        "summary": "Consulta Ingresso por Id",
+        "description": "Rota responsável por recuperar um ingresso pelo seu Id",
+        "tags": ["Ingressos"],
+        "parameters": [
+          {
+            "name": "idIngresso",
+            "in": "path",
+            "description": "Id do ingresso",
+            "required": true
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Ingresso não encontrado"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Evento"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "senha": {
+            "type": "string"
+          }
+        }
+      },
+      "Auth": {
+        "type": "object",
+        "properties": {
+          "usuario": {
+            "$ref": "#/components/schemas/Usuario"
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "Evento": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "data": {
+            "type": "string",
+            "format": "date"
+          },
+          "quantidade_ingressos": {
+            "type": "number"
+          }
+        }
+      },
+      "Ingresso": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "usuario": {
+            "$ref": "#/components/schemas/Usuario"
+          },
+          "evento": {
+            "$ref": "#/components/schemas/Evento"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

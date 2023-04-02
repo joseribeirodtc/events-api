@@ -9,23 +9,32 @@ const eventoController = new EventoController();
 //salvar evento
 routerEvento.post("/", async (req, res) => {
   const { nome, data, quantidade_ingressos } = req.body;
+
+  if (!nome || !data || !quantidade_ingressos) {
+    return res.sendStatus(400);
+  }
+
+  const eventoExiste = await eventoController.recuperarEventoPorData(data);
+
+  if (eventoExiste) {
+    return res.sendStatus(409);
+  }
+
   const evento = new Evento(nome, data, quantidade_ingressos);
   const eventoSalvo = await eventoController.salvar(evento);
-  res.json(eventoSalvo);
+  return res.json(eventoSalvo);
 });
 
 //consulta evento por id
 routerEvento.get("/:idEvento", async (req, res) => {
   const idEvento = parseInt(req.params.idEvento);
   const evento = await eventoController.recuperarPorId(idEvento);
-  res.json(evento);
-});
 
-//consulta ingressos do evento
-routerEvento.get("/ingressos/:idEvento", async (req, res) => {
-  const idEvento = parseInt(req.params.idEvento);
-  const ingressos = await eventoController.recuperarIngressosDoEvento(idEvento);
-  res.json(ingressos);
+  if (!evento) {
+    return res.status(404).json({ mensagem: "Evento não encontrado!" });
+  }
+
+  return res.json(evento);
 });
 
 //consulta eventos por data, ou todos
@@ -42,24 +51,25 @@ routerEvento.get("/", async (req, res) => {
     data_inicio,
     data_fim
   );
-  res.json(eventos);
+  return res.json(eventos);
 });
 
-//essa eh apenas para teste
 //atualiza ingressos disponiveis
 routerEvento.patch("/:idEvento/:quantidade", async (req, res) => {
   const idEvento = parseInt(req.params.idEvento);
   const quantidade = parseInt(req.params.quantidade);
-  const evento = await eventoController.atualizarIngressosDisponiveis(
-    idEvento,
-    quantidade
-  );
-  res.json(evento);
-});
 
-//delete evento
-routerEvento.delete("/:idEvento", async (req, res) => {
-  const idEvento = parseInt(req.params.idEvento);
-  await eventoController.deletarEvento(idEvento);
-  res.status(204).send();
+  if (isNaN(quantidade) || isNaN(idEvento)) {
+    return res.sendStatus(400);
+  }
+
+  const evento = await eventoController.recuperarPorId(idEvento);
+  if (!evento) {
+    return res.status(404).json({ mensagem: "Evento não encontrado!" });
+  }
+
+  const evento_atualizado =
+    await eventoController.atualizarIngressosDisponiveis(idEvento, quantidade);
+
+  return res.json(evento_atualizado);
 });
