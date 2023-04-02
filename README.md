@@ -1,39 +1,64 @@
 # API para aplicação de Eventos!
 
-Passos para rodar esse projeto:
+## Conteúdo
 
-1. Run `npm i` command
-2. Configurar database no arquivo ormconfig.json
-3. Definir chave de autenticação no arquivo .env (seguir modelo .env-example)
-4. Executar `npm run start` no terminal (diretorio do projeto)
+- [Dependências](#dependencias)
+- [Instalação](#instalacao)
+- [Documentação com Swagger](#documentacao)
+- [Funcionalidades](#funcionalidades)
+  - [Usuários](#usuarios)
+  - [Eventos](#eventos)
+  - [Ingressos](#ingressos)
+  - [Autenticação](#autenticacao)
 
-exemplo de consulta no postman para eventos por data:
-GET: http://localhost:3000/eventos?data_inicio=2023-09-01&data_fim=2023-11-01
+## Dependências
 
-caso a url não tenha os parametros de consulta ?data_inicio=2023-09-01&data_fim=2023-11-01
-ficando apenas: GET: http://localhost:3000/eventos
+Este projeto precisa do `Docker` instalado na máquina.
+Caso ainda não possua, bsta seguir o tutorial na documentação do Docker `https://docs.docker.com/`
 
-todos os eventos numa faixa de 100 anos serão consultados, 100 anos de dor!
+## Instalação
 
-# Eventos
+1. No diretório do projeto clonado:
 
-Exemplo de body evento:
+```bash
+$ npm install
+```
 
-{
-"nome":"Show Red Hot",
-"data":"2023-11-04",
-"quantidade_ingressos":"100"
-}
+2. (opcional) Definir chave de autenticação na variável `ENV SECRET` no arquivo Dockerfile (por padrão já está sendo setado o valor "secret").
 
-exemplo de requisiçao para pegar por periodo:
-http://localhost:3000/eventos?data_inicio=2023-01-01&data_fim=2024-02-01
+3. Subindo containers:
 
-# Usuários
+```bash
+$ docker-compose up -d --build
+```
 
-Exemplo de body usuário
+O projeto está instalado, pronto para uso e pode ser acessado na porta `http://localhost:3000`
 
-{
-"nome":"joao",
-"email":"joao@email.com",
-"senha":"123joao"
-}
+## Documentação com Swagger
+
+Para acessar a documentação com Swagger, basta acessar a rota http://localhost:3000/api-docs
+Nela estão listadas todas as funcionalidades implementadas para esta aplicação e prontas para uso.
+
+## Funcionalidades
+
+### Usuários
+
+1. Criar novo usuário
+2. Consulta usuários
+3. Consulta usuário por Id
+
+### Eventos
+
+1. Criar novo evento
+2. Consulta evento por Id
+3. Consulta de eventos por período/todos
+4. Atualiza ingressos disponíveis para um evento.
+
+### Ingressos
+
+1. Criar novo ingresso (rota protegida por autenticação de usuário)
+2. Consulta ingresso por Id
+
+### Autenticação
+
+1. Autentica usuário cadastrado por email e senha
