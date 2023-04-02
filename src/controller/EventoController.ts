@@ -16,7 +16,9 @@ export class EventoController {
     if (id === undefined) {
       return null;
     }
-    const evento = await getManager().findOne(Evento, id);
+    const evento = await getManager().findOne(Evento, id, {
+      relations: ["ingressos"],
+    });
     return evento;
   }
 
@@ -28,6 +30,15 @@ export class EventoController {
       .getMany();
 
     return eventos;
+  }
+
+  async recuperarEventoPorData(data: Date) {
+    if (data === undefined) {
+      return null;
+    }
+
+    const evento = await getManager().findOne(Evento, { where: { data } });
+    return evento;
   }
 
   async recuperarIngressosDoEvento(id: number) {

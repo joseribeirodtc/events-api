@@ -32,13 +32,13 @@ export class UsuarioController {
     return usuario;
   }
 
-  async recuperarIngressosDoUsuario(id: number) {
-    if (id === undefined) {
-      return null;
-    }
-    const usuario = await getManager().findOne(Usuario, id, {
-      relations: ["ingressos"],
-    });
-    return usuario.ingressos;
-  }
+  // async recuperarIngressosDoUsuario(id: number) {
+  //   if (id === undefined) {
+  //     return null;
+  //   }
+  //   const usuario = await getManager().findOne(Usuario, id, {
+  //     relations: ["ingressos"],
+  //   });
+  //   return usuario.ingressos;
+  // }
 }

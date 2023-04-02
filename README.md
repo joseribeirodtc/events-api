@@ -25,6 +25,9 @@ Exemplo de body evento:
 "quantidade_ingressos":"100"
 }
 
+exemplo de requisiçao para pegar por periodo:
+http://localhost:3000/eventos?data_inicio=2023-01-01&data_fim=2024-02-01
+
 # Usuários
 
 Exemplo de body usuário
