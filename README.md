@@ -36,7 +36,7 @@ O projeto está instalado, pronto para uso e pode ser acessado na porta `http://
 
 ## Documentação com Swagger
 
-Para acessar a documentação com Swagger, basta acessar a rota http://localhost:3000/api-docs
+Para acessar a documentação com Swagger, basta acessar a rota `http://localhost:3000/api-docs`
 Nela estão listadas todas as funcionalidades implementadas para esta aplicação e prontas para uso.
 
 ## Funcionalidades
