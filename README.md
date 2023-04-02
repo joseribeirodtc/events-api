@@ -2,14 +2,14 @@
 
 ## Conteúdo
 
-- [Dependências](#dependencias)
-- [Instalação](#instalacao)
-- [Documentação com Swagger](#documentacao)
+- [Dependências](#dependências)
+- [Instalação](#instalação)
+- [Documentação com Swagger](#documentação-com-swagger)
 - [Funcionalidades](#funcionalidades)
-  - [Usuários](#usuarios)
+  - [Usuários](#usuários)
   - [Eventos](#eventos)
   - [Ingressos](#ingressos)
-  - [Autenticação](#autenticacao)
+  - [Autenticação](#autenticação)
 
 ## Dependências
 
