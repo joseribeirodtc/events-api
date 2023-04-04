@@ -43,22 +43,22 @@ Nela estão listadas todas as funcionalidades implementadas para esta aplicaçã
 
 ### Usuários
 
-1. Criar novo usuário
-2. Consulta usuários
-3. Consulta usuário por Id
+1. Criar novo usuário.
+2. Consulta usuários.
+3. Consulta usuário por Id.
 
 ### Eventos
 
-1. Criar novo evento
-2. Consulta evento por Id
-3. Consulta de eventos por período/todos
+1. Criar novo evento.
+2. Consulta evento por Id.
+3. Consulta de eventos por período/todos.
 4. Atualiza ingressos disponíveis para um evento.
 
 ### Ingressos
 
-1. Criar novo ingresso (rota protegida por autenticação de usuário)
-2. Consulta ingresso por Id
+1. Criar novo ingresso (rota protegida por autenticação de usuário).
+2. Consulta ingresso por Id.
 
 ### Autenticação
 
-1. Autentica usuário cadastrado por email e senha
+1. Autentica usuário cadastrado por email e senha.
